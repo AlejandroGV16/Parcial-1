@@ -1,0 +1,157 @@
+import tkinter as tk
+
+
+class pCircuit:
+    def __init__(self, master):
+        self.master = master
+        master.title("Python App")
+
+        # Variables
+        self.va_var = tk.StringVar()
+        self.vb_var = tk.StringVar()
+        self.vc_var = tk.StringVar()
+        self.det_var = tk.StringVar()
+        self.i1_var = tk.StringVar()
+        self.i2_var = tk.StringVar()
+        self.i3_var = tk.StringVar()
+        self.r1_var = tk.StringVar()
+        self.r2_var = tk.StringVar()
+        self.r3_var = tk.StringVar()
+        self.r4_var = tk.StringVar()
+        self.r5_var = tk.StringVar()
+        self.r6_var = tk.StringVar()
+
+        # GUI Components
+        self.va_label = tk.Label(master, text="Va")
+        self.va_entry = tk.Entry(master, textvariable=self.va_var)
+
+        self.vb_label = tk.Label(master, text="Vb")
+        self.vb_entry = tk.Entry(master, textvariable=self.vb_var)
+
+        self.vc_label = tk.Label(master, text="Vc")
+        self.vc_entry = tk.Entry(master, textvariable=self.vc_var)
+
+        self.det_label = tk.Label(master, text="det")
+        self.det_entry = tk.Entry(master, textvariable=self.det_var)
+
+        self.i1_label = tk.Label(master, text="I1")
+        self.i1_entry = tk.Entry(master, textvariable=self.i1_var)
+
+        self.i2_label = tk.Label(master, text="I2")
+        self.i2_entry = tk.Entry(master, textvariable=self.i2_var)
+
+        self.i3_label = tk.Label(master, text="I3")
+        self.i3_entry = tk.Entry(master, textvariable=self.i3_var)
+
+        self.r1_label = tk.Label(master, text="R1")
+        self.r1_entry = tk.Entry(master, textvariable=self.r1_var)
+
+        self.r2_label = tk.Label(master, text="R2")
+        self.r2_entry = tk.Entry(master, textvariable=self.r2_var)
+
+        self.r3_label = tk.Label(master, text="R3")
+        self.r3_entry = tk.Entry(master, textvariable=self.r3_var)
+
+        self.r4_label = tk.Label(master, text="R4")
+        self.r4_entry = tk.Entry(master, textvariable=self.r4_var)
+
+        self.r5_label = tk.Label(master, text="R5")
+        self.r5_entry = tk.Entry(master, textvariable=self.r5_var)
+
+        self.r6_label = tk.Label(master, text="R6")
+        self.r6_entry = tk.Entry(master, textvariable=self.r6_var)
+
+        self.corrientes_button = tk.Button(
+            master, text="Corrientes", command=self.calculate_currents
+        )
+
+        # Grid layout
+        self.va_label.grid(row=0, column=0, padx=5, pady=5, sticky=tk.E)
+        self.va_entry.grid(row=0, column=1, padx=5, pady=5)
+
+        self.vb_label.grid(row=1, column=0, padx=5, pady=5, sticky=tk.E)
+        self.vb_entry.grid(row=1, column=1, padx=5, pady=5)
+
+        self.vc_label.grid(row=2, column=0, padx=5, pady=5, sticky=tk.E)
+        self.vc_entry.grid(row=2, column=1, padx=5, pady=5)
+
+        self.det_label.grid(row=3, column=0, padx=5, pady=5, sticky=tk.E)
+        self.det_entry.grid(row=3, column=1, padx=5, pady=5)
+
+        self.i1_label.grid(row=4, column=0, padx=5, pady=5, sticky=tk.E)
+        self.i1_entry.grid(row=4, column=1, padx=5, pady=5)
+
+        self.i2_label.grid(row=5, column=0, padx=5, pady=5, sticky=tk.E)
+        self.i2_entry.grid(row=5, column=1, padx=5, pady=5)
+
+        self.i3_label.grid(row=6, column=0, padx=5, pady=5, sticky=tk.E)
+        self.i3_entry.grid(row=6, column=1, padx=5, pady=5)
+
+        self.r1_label.grid(row=0, column=2, padx=5, pady=5, sticky=tk.E)
+        self.r1_entry.grid(row=0, column=3, padx=5, pady=5)
+
+        self.r2_label.grid(row=1, column=2, padx=5, pady=5, sticky=tk.E)
+        self.r2_entry.grid(row=1, column=3, padx=5, pady=5)
+
+        self.r3_label.grid(row=2, column=2, padx=5, pady=5, sticky=tk.E)
+        self.r3_entry.grid(row=2, column=3, padx=5, pady=5)
+
+        self.r4_label.grid(row=3, column=2, padx=5, pady=5, sticky=tk.E)
+        self.r4_entry.grid(row=3, column=3, padx=5, pady=5)
+
+        self.r5_label.grid(row=4, column=2, padx=5, pady=5, sticky=tk.E)
+        self.r5_entry.grid(row=4, column=3, padx=5, pady=5)
+
+        self.r6_label.grid(row=5, column=2, padx=5, pady=5, sticky=tk.E)
+        self.r6_entry.grid(row=5, column=3, padx=5, pady=5)
+
+        self.corrientes_button.grid(row=6, column=2, columnspan=2, padx=5, pady=5)
+
+    def calculate_currents(self):
+        r1 = float(self.r1_var.get())
+        r2 = float(self.r2_var.get())
+        r3 = float(self.r3_var.get())
+        r4 = float(self.r4_var.get())
+        r5 = float(self.r5_var.get())
+        r6 = float(self.r6_var.get())
+
+        va = float(self.va_var.get())
+        vb = float(self.vb_var.get())
+        vc = float(self.vc_var.get())
+
+        determinante = (
+            (r1 + r2 + r3) * ((r2 + r4 + r5) * (r3 + r5 + r6) - (-r5) ** 2)
+            - (-r2) * ((-r2) * (r3 + r5 + r6) - (-r5) * (-r3))
+            + ((-r2) * (-r5) - (r2 + r4 + r5) * (-r3))
+        )
+
+        self.det_var.set(determinante)
+
+        i1 = (
+            (va) * ((r2 + r4 + r5) * (r3 + r5 + r6) - (-r5) ** 2)
+            - (-vb) * ((-r2) * (r3 + r5 + r6) - (-r3) * (-r5))
+            + (vc) * ((-r2) * (-r5) - (-r3) * (r2 + r4 + r5))
+        ) / determinante
+
+        self.i1_var.set(i1)
+
+        i2 = (
+            (r1 + r2 + r3) * ((-vb) * (r3 + r5 + r6) - (-r5) * (vc))
+            - (va) * ((-r2) * (r3 + r5 + r6) - (-r5) * (-r3))
+            + (-r3) * ((-r2) * (vc) - (-r3) * (-vb))
+        ) / determinante
+
+        self.i2_var.set(i2)
+
+        i3 = (
+            (r1 + r2 + r3) * ((r2 + r4 + r5) * (vc) - (-vb) * (-r5))
+            - (-r2) * ((-r2) * (vc) - (-r3) * (-vb))
+            + (va) * ((-r2) * (-r5) - (r2 + r4 + r5) * (-r3))
+        ) / determinante
+
+        self.i3_var.set(i3)
+
+
+root = tk.Tk()
+app = pCircuit(root)
+root.mainloop()
